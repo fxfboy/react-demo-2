@@ -1,0 +1,12 @@
+version: "3.2"
+services:
+  react-nginx:
+    #container_name: react-demo-2
+    build:
+      context: .
+    ports:
+      - 80:80
+    environment:
+      - APP_PROXY_URL=http://www.mocky.io/v2/
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d

@@ -9,7 +9,10 @@ RUN npm run build
 
 FROM nginx:1.15.12-alpine
 COPY --from=builder /app/build/ /var/www
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY gzip.conf /etc/nginx/conf.d/gzip.conf
+COPY nginx.conf /etc/nginx/nginx.conf.template
+#COPY gzip.conf /etc/nginx/conf.d/gzip.conf
+COPY start.sh /bin/start.sh
+RUN chmod +x /bin/start.sh
 EXPOSE 80
-ENTRYPOINT ["nginx","-g","daemon off;"]
+ENTRYPOINT ["/bin/start.sh"]
+#ENTRYPOINT ["nginx","-g","daemon off;"]
